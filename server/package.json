@@ -1,0 +1,16 @@
+{
+  "name": "converse-server",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "dev": "set PORT=5000 && node --watch index.js",
+    "start": "node index.js"
+  },
+  "author": "Aman",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.3",
+    "socket.io": "^4.7.4"
+  }
+}
