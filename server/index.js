@@ -9,6 +9,10 @@ const expressServer = app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
 
+app.get('/', (req, res) => {
+  res.send('Server is running blazingly fast 🚀');
+});
+
 expressServer.on('error', (error) => {
   console.log(`Server error: ${error}`);
 });
