@@ -89,7 +89,7 @@ function Messages(): JSX.Element {
   return (
     <>
       {messages?.length === 0 && (
-        <p className="text-center lg:text-2xl absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full font-semibold select-none">
+        <p className="text-center lg:text-2xl absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full font-semibold select-none px-6 lg:px-0">
           All the messages are deleted after you leave the chat room
         </p>
       )}
