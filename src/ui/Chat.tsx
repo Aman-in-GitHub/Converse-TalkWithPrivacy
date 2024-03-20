@@ -3,12 +3,13 @@ import SendIcon from './SendIcon';
 import { toast } from 'sonner';
 import socket from '../socket/socket';
 import { getUser } from '../constants/CONSTANTS';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 import { Button } from '@nextui-org/react';
 import { nanoid } from 'nanoid';
+import { RoomContext } from '../hooks/roomContext';
 
 function Chat() {
-  const [room, setRoom] = useState('');
+  const { roomID, updateRoomID } = useContext(RoomContext);
 
   useEffect(() => {
     socket.on('roomAlert', (data) => {
@@ -16,7 +17,7 @@ function Chat() {
     });
 
     socket.on('joinedRoom', (data) => {
-      setRoom(data);
+      updateRoomID(data);
     });
 
     return () => {
@@ -62,7 +63,7 @@ function Chat() {
 
     toast.info(`Room ID copied to your clipboard`);
 
-    setRoom(ROOM_ID);
+    updateRoomID(ROOM_ID);
   }
 
   function handleJoinRoom(e: any) {
@@ -92,7 +93,7 @@ function Chat() {
     <>
       <main className="h-screen pt-20 font-body bg-[url('/mobileBg.jpg')] lg:bg-[url('/bg.jpg')] bg-cover overflow-auto scrollbar-hide bg-no-repeat">
         <Messages />
-        {room ? (
+        {roomID ? (
           <form
             className="flex items-center absolute bottom-0 w-full py-2 lg:py-4 border-t px-4 lg:px-10 bg-green-100"
             onSubmit={handleMessageSubmit}

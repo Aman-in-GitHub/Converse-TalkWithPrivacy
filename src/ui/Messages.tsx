@@ -1,6 +1,7 @@
-import { useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import socket from '../socket/socket';
 import { toast } from 'sonner';
+import { RoomContext } from '../hooks/roomContext';
 
 type MessageData = {
   id: string;
@@ -13,6 +14,7 @@ function Messages(): JSX.Element {
   const [messages, setMessages] = useState<MessageData[]>([]);
   const [isTyping, setIsTyping] = useState('');
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
+  const { updateRoomID } = useContext(RoomContext);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -40,10 +42,11 @@ function Messages(): JSX.Element {
 
     const handleUserLeftRoom = (data: string) => {
       toast.error(data);
-      toast.warning(`You will be redirected shortly to the home page`);
+      toast.warning(`You will be redirected to the home page shortly`);
 
       const timeoutId = setTimeout(() => {
         window.location.href = '/';
+        updateRoomID('');
       }, 5000);
 
       return () => clearTimeout(timeoutId);
@@ -61,10 +64,11 @@ function Messages(): JSX.Element {
 
     const handleUserDisconnected = (data: string) => {
       toast.error(data);
-      toast.warning(`You will be redirected shortly to the home page`);
+      toast.warning(`You will be redirected to the home page shortly`);
 
       const timeoutId = setTimeout(() => {
         window.location.href = '/';
+        updateRoomID('');
       }, 5000);
 
       return () => clearTimeout(timeoutId);

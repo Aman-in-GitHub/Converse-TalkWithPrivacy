@@ -129,12 +129,12 @@ function buildMessage(name, message, id) {
     name: name,
     message: message,
     id: id,
-    time: new Intl.DateTimeFormat('default', {
+    time: new Date().toLocaleTimeString([], {
       hour: 'numeric',
       minute: 'numeric',
       second: 'numeric',
       hour12: false
-    }).format(new Date())
+    })
   };
 }
 
