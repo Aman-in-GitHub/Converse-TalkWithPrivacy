@@ -16,7 +16,7 @@ import { LS_PREFIX, getUser } from './constants/CONSTANTS';
 import Chat from './ui/Chat';
 
 function App() {
-  const { setItem } = useLocalStorage();
+  const { getItem, setItem } = useLocalStorage();
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
   const [modalTitle, setModalTitle] = useState('Enter your details');
 
@@ -25,6 +25,14 @@ function App() {
 
     if (!user) {
       onOpen();
+    } else {
+      if (!getItem(`${LS_PREFIX}-warning`)) {
+        toast.warning(
+          'The server might take a bit to spin up as we are on a free tier :('
+        );
+
+        setItem(`${LS_PREFIX}-warning`, 'shown');
+      }
     }
   }, []);
 
