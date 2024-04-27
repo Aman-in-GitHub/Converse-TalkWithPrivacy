@@ -25,14 +25,6 @@ function App() {
 
     if (!user) {
       onOpen();
-    } else {
-      if (!getItem(`${LS_PREFIX}-warning`)) {
-        toast.warning(
-          'The server might take a bit to spin up as we are on a free tier :('
-        );
-
-        setItem(`${LS_PREFIX}-warning`, 'shown');
-      }
     }
   }, []);
 

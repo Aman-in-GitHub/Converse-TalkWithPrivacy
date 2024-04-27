@@ -17,6 +17,15 @@ expressServer.on('error', (error) => {
   console.log(`Server error: ${error}`);
 });
 
+app.get("/api/refresh", async (req, res) => {
+  try {
+    res.status(200).json({ message: "Server refreshed" });
+  } catch (error) {
+    console.error("Error refreshing server:", error);
+    res.status(500).json({ message: "Failed to refresh server" });
+  }
+});
+
 const UserState = {
   users: [],
   setUsers: function (newUsers) {
@@ -159,3 +168,17 @@ function getRoomUsers(room) {
 function getRooms() {
   return UserState.users.map((u) => u.room);
 }
+
+const refreshServer = async () => {
+  try {
+    const url = process.env.SERVER_URL;
+    const response = await fetch(`${url}/api/refresh`);
+    const data = await response.json();
+    console.log('Server refreshed:', data);
+  } catch (error) {
+    console.error('Error refreshing server:', error);
+  }
+};
+
+const interval = 10 * 60 * 1000;
+setInterval(refreshServer, interval);
