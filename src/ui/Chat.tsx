@@ -8,7 +8,7 @@ import { Button } from '@nextui-org/react';
 import { nanoid } from 'nanoid';
 import { RoomContext } from '../hooks/roomContext';
 
-function Chat({ isLive }) {
+function Chat({ isLive }: { isLive: boolean }) {
   const { roomID, updateRoomID } = useContext(RoomContext);
 
   useEffect(() => {
