@@ -17,12 +17,12 @@ expressServer.on('error', (error) => {
   console.log(`Server error: ${error}`);
 });
 
-app.get("/api/refresh", async (req, res) => {
+app.get('/api/refresh', async (req, res) => {
   try {
-    res.status(200).json({ message: "Server refreshed" });
+    res.status(200).json({ message: 'Server refreshed' });
   } catch (error) {
-    console.error("Error refreshing server:", error);
-    res.status(500).json({ message: "Failed to refresh server" });
+    console.error('Error refreshing server:', error);
+    res.status(500).json({ message: 'Failed to refresh server' });
   }
 });
 

@@ -16,9 +16,11 @@ import { LS_PREFIX, getUser } from './constants/CONSTANTS';
 import Chat from './ui/Chat';
 
 function App() {
-  const { getItem, setItem } = useLocalStorage();
+  const { setItem } = useLocalStorage();
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
   const [modalTitle, setModalTitle] = useState('Enter your details');
+
+  const [isLive, setIsLive] = useState(false);
 
   useEffect(() => {
     const user = getUser();
@@ -26,6 +28,29 @@ function App() {
     if (!user) {
       onOpen();
     }
+  }, []);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await fetch(
+          'https://converse-talkwithprivacy.onrender.com'
+        );
+
+        setIsLive(true);
+
+        console.log(response.status);
+      } catch (error) {
+        console.error('Error:', error);
+        toast.error('Sorry for the inconvenience', {
+          description:
+            "This site has reached it's monthly spend limit. Please try again later.",
+          duration: 69000
+        });
+      }
+    }
+
+    fetchData();
   }, []);
 
   function handleOpen() {
@@ -61,7 +86,7 @@ function App() {
   return (
     <>
       <Navbar handleOpen={handleOpen} />
-      <Chat />
+      <Chat isLive={isLive} />
       <Modal
         isOpen={isOpen}
         onOpenChange={onOpenChange}

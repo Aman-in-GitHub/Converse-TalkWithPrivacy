@@ -8,7 +8,7 @@ import { Button } from '@nextui-org/react';
 import { nanoid } from 'nanoid';
 import { RoomContext } from '../hooks/roomContext';
 
-function Chat() {
+function Chat({ isLive }) {
   const { roomID, updateRoomID } = useContext(RoomContext);
 
   useEffect(() => {
@@ -117,6 +117,7 @@ function Chat() {
               type="text"
               className="w-full py-2 lg:py-3 outline-0 text-lg lg:text-2xl caret-green-500 bg-transparent selection:bg-green-500 selection:text-white lg:w-1/2"
               placeholder="Join an existing room"
+              disabled={!isLive}
             />
 
             <Button
@@ -124,6 +125,7 @@ function Chat() {
               color="primary"
               className=" w-full lg:w-1/2 h-full py-2 lg:py-4 text-lg lg:text-xl font-heading"
               onClick={createRoom}
+              disabled={!isLive}
             >
               Create a new room
             </Button>
