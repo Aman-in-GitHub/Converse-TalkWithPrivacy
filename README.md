@@ -13,5 +13,3 @@ Converse is a real-time chat application built using Node.js, React, and Socket 
 - Express.js
 - React
 - Tailwind CSS
-
-_Start your conversation now at_ [Converse](https://converse-by-aman.netlify.app/)
